@@ -85,12 +85,21 @@
   \upTeX のデフォルトはこの状態である．
 
  \csitem[\.{disablecjktoken}]
-  全てのUnicode文字を欧文扱いにする．
+  全てのUnicode文字を欧文扱いにする（単なるバイト列として扱う）．
   入力に関して8-bit欧文\TeX と互換になる．
 
  \csitem[\.{forcecjktoken}]
-  ASCII文字以外のUnicode文字を強制的に和文扱いにする．
+  ASCII文字以外のUnicode文字を（\.{kcatcode}にかかわらず）
+  強制的に和文扱いにする．
+  このとき，\.{kcatcode}が15の文字は「その他和文」(18)扱いになる．
+\begin{verbatim}
+\forcecjktoken\kcatcode`西=15
+\message{\the\kcatcode`＠ % ==> 18
+\ifcat 西＠ T\else F\fi}% ==> T
+\end{verbatim}
 \end{cslist}
+
+
 
 \.{kchar}
 \.{kchardef}
