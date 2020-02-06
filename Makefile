@@ -29,7 +29,6 @@ install:
 	mkdir -p ${TEXMF}/doc/uptex/uptex-manual
 	cp ./LICENSE ${TEXMF}/doc/uptex/uptex-manual/
 	cp ./README* ${TEXMF}/doc/uptex/uptex-manual/
-	cp ./Makefile ${TEXMF}/doc/uptex/uptex-manual/
 	cp ./*.tex ${TEXMF}/doc/uptex/uptex-manual/
 	cp ./*.pdf ${TEXMF}/doc/uptex/uptex-manual/
 clean:
