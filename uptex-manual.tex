@@ -70,11 +70,20 @@
 \newpage
 
 %%%%%
-\section{\upTeX の拡張プリミティブ}
+\part{\upTeX の拡張と追加プリミティブ}
 
-\upTeX で導入または拡張されたプリミティブの説明
+ここでは，\upTeX における\pTeX からの変更点と，追加または拡張された
+プリミティブを説明する．
 
-%% [TODO] 欧文トークンと CJK トークンの扱いの話が必須
+\section{\upTeX で利用可能な文字}
+\label{sec:uptexchar}
+
+\pTeX で直接使える文字集合はJIS~X~0208（JIS第1，2水準）に限られていたが，
+内部コードがUnicode化された\upTeX ではUnicodeの文字を直接扱える．
+
+[TODO] もう少し詳しく．起動時オプションの|uptex|も説明
+
+\section{和文文字トークンと欧文文字トークンの区別}
 %% https://github.com/texjporg/tex-jp-build/issues/43
 \.{kcatcode}% pTeX から大きく変更されている，ハングルが19
 
@@ -104,12 +113,13 @@
 \.{kchar}
 \.{kchardef}
 
-\.{ucs}
+% \.{ucs}は元々\upTeX による拡張であったが，
+% \pTeX~p3.10.0でコミュニティ版\pTeX にバックポートされた．
 
 % [TODO] 補足として以下の pTeX <-> upTeX の違いもまとめる？
 % https://github.com/texjporg/tex-jp-build/issues/36
-\.{kansujichar}
-\.{inhibitxspcode}
+% \.{kansujichar}
+% \.{inhibitxspcode}
 
 \section{バージョン番号}
 
