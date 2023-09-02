@@ -1,5 +1,5 @@
 %#!make uptex-manual.pdf
-\documentclass[uplatex,a4paper,11pt,nomag]{jsarticle}
+\documentclass[uplatex,a4paper,11pt,nomag,dvipdfmx]{jsarticle}
 \usepackage[textwidth=42zw,lines=40,truedimen,centering]{geometry}
 
 %%%%%%%%%%%%%%%%
@@ -13,9 +13,8 @@
 \usepackage[defaultsups]{newpxtext}
 \usepackage[zerostyle=c,straightquotes]{newtxtt}
 \usepackage{newpxmath}
-\usepackage[dvipdfmx,hyperfootnotes=false]{hyperref}
+\usepackage[hyperfootnotes=false]{hyperref}
 \usepackage{pxjahyper}
-\usepackage{hologo}
 \usepackage{makeidx}\makeindex
 
 % common
@@ -48,11 +47,6 @@
 \MakeShortVerb*{|}
 %%%%%%%%%%%%%%%%
 
-% logos
-\def\epTeX{$\varepsilon$-\pTeX}\def\eTeX{$\varepsilon$-\TeX}
-\def\eupTeX{$\varepsilon$-\upTeX}\def\upTeX{u\pTeX}
-\def\pTeX{p\kern-.10em\TeX}
-
 \def\_{\leavevmode\vrule width .45em height -.2ex depth .3ex\relax}
 
 \frenchspacing
@@ -75,43 +69,43 @@
 ここでは，\upTeX における\pTeX からの変更点と，追加または拡張された
 プリミティブを説明する．
 
-\section{\upTeX で利用可能な文字}
-\label{sec:uptexchar}
+%\section{\upTeX で利用可能な文字}
+%\label{sec:uptexchar}
+%
+%\pTeX で直接使える文字集合はJIS~X~0208（JIS第1，2水準）に限られていたが，
+%内部コードがUnicode化された\upTeX ではUnicodeの文字を直接扱える．
 
-\pTeX で直接使える文字集合はJIS~X~0208（JIS第1，2水準）に限られていたが，
-内部コードがUnicode化された\upTeX ではUnicodeの文字を直接扱える．
+%[TODO] もう少し詳しく．起動時オプションの|uptex|も説明
 
-[TODO] もう少し詳しく．起動時オプションの|uptex|も説明
-
-\section{和文文字トークンと欧文文字トークンの区別}
+%\section{和文文字トークンと欧文文字トークンの区別}
 %% https://github.com/texjporg/tex-jp-build/issues/43
-\.{kcatcode}% pTeX から大きく変更されている，ハングルが19
+%\.{kcatcode}% pTeX から大きく変更されている，ハングルが19
+%
+%\begin{cslist}
+% \csitem[\.{enablecjktoken}]
+%  和文文字と欧文文字の区別について，\.{kcatcode}の設定に従う．
+%  \.{kcatcode}が15なら欧文扱い，16以上なら和文扱いにする．
+%  \upTeX のデフォルトはこの状態である．
+%
+% \csitem[\.{disablecjktoken}]
+%  全てのUnicode文字を欧文扱いにする（単なるバイト列として扱う）．
+%  入力に関して8-bit欧文\TeX と互換になる．
+%
+% \csitem[\.{forcecjktoken}]
+%  ASCII文字以外のUnicode文字を（\.{kcatcode}にかかわらず）
+%  強制的に和文扱いにする．
+%  このとき，\.{kcatcode}が15の文字は「その他和文」(18)扱いになる．
+%\begin{verbatim}
+%\forcecjktoken\kcatcode`西=15
+%\message{\the\kcatcode`＠ % ==> 18
+%\ifcat 西＠ T\else F\fi}% ==> T
+%\end{verbatim}
+%\end{cslist}
 
-\begin{cslist}
- \csitem[\.{enablecjktoken}]
-  和文文字と欧文文字の区別について，\.{kcatcode}の設定に従う．
-  \.{kcatcode}が15なら欧文扱い，16以上なら和文扱いにする．
-  \upTeX のデフォルトはこの状態である．
-
- \csitem[\.{disablecjktoken}]
-  全てのUnicode文字を欧文扱いにする（単なるバイト列として扱う）．
-  入力に関して8-bit欧文\TeX と互換になる．
-
- \csitem[\.{forcecjktoken}]
-  ASCII文字以外のUnicode文字を（\.{kcatcode}にかかわらず）
-  強制的に和文扱いにする．
-  このとき，\.{kcatcode}が15の文字は「その他和文」(18)扱いになる．
-\begin{verbatim}
-\forcecjktoken\kcatcode`西=15
-\message{\the\kcatcode`＠ % ==> 18
-\ifcat 西＠ T\else F\fi}% ==> T
-\end{verbatim}
-\end{cslist}
 
 
-
-\.{kchar}
-\.{kchardef}
+%\.{kchar}
+%\.{kchardef}
 
 % \.{ucs}は元々\upTeX による拡張であったが，
 % \pTeX~p3.10.0でコミュニティ版\pTeX にバックポートされた．
@@ -121,28 +115,28 @@
 % \.{kansujichar}
 % \.{inhibitxspcode}
 
-\section{バージョン番号}
+%\section{バージョン番号}
 
-\pTeX~p3.8.0に\.{ptexversion}, \.{ptexrevision}が実装されたのと同時に，
-\upTeX でもバージョン番号を取得する以下のプリミティブが追加された．
+%\pTeX~p3.8.0に\.{ptexversion}, \.{ptexrevision}が実装されたのと同時に，
+%\upTeX でもバージョン番号を取得する以下のプリミティブが追加された．
 
-\begin{cslist}
- \csitem[\.{uptexversion}, \.{uptexrevision}]
-  \upTeX のバージョン番号はu$x{.}y$の形式となっており，
-  それらを取得するための命令である．
-  \.{uptexversion}は$x$の値を内部整数で返し，
-  \.{uptexrevision}はその後ろの「${.}y$」を文字列で返す．
-\end{cslist}
-
-
-\newpage
+%\begin{cslist}
+% \csitem[\.{uptexversion}, \.{uptexrevision}]
+%  \upTeX のバージョン番号はu$x{.}y$の形式となっており，
+%  それらを取得するための命令である．
+%  \.{uptexversion}は$x$の値を内部整数で返し，
+%  \.{uptexrevision}はその後ろの「${.}y$」を文字列で返す．
+%\end{cslist}
 
 
-\begin{thebibliography}{99}
-\end{thebibliography}
+%\newpage
 
-\newpage
-\printindex
+
+%\begin{thebibliography}{99}
+%\end{thebibliography}
+
+%\newpage
+%\printindex
 
 
 \end{document}
